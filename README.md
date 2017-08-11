@@ -1,10 +1,9 @@
 # ABNScheduler 
-[![Build Status](https://travis-ci.org/ahmedabadie/ABNScheduler.svg?branch=master)](https://travis-ci.org/ahmedabadie/ABNScheduler)
-[![Swift 3](https://img.shields.io/badge/Swift-3-orange.svg?style=flat)](https://swift.org)
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/ahmedabadie/ABNScheduler/blob/master/LICENSE)
-
-
-ABNScheduler is a local notifications scheduler for iOS written in Swift.
+![screen shot 2017-08-11 at 10 16 44 am](https://user-images.githubusercontent.com/30854711/29202817-47500ce8-7e89-11e7-86f9-8e2abfe0ebde.png)
+![screen shot 2017-08-11 at 10 18 33 am](https://user-images.githubusercontent.com/30854711/29202824-527d4068-7e89-11e7-9065-3b2d362089c2.png)
+![screen shot 2017-08-11 at 10 18 48 am](https://user-images.githubusercontent.com/30854711/29202826-56fceb70-7e89-11e7-936a-61ca698d49ac.png)
+![screen shot 2017-08-11 at 10 19 12 am](https://user-images.githubusercontent.com/30854711/29202828-5a04d468-7e89-11e7-985d-99ca5f944c20.png)
+![screen shot 2017-08-11 at 10 21 02 am](https://user-images.githubusercontent.com/30854711/29202829-5bf83fc6-7e89-11e7-9ac2-5f539922e735.png)
 
 ## Features
 
@@ -12,9 +11,6 @@ ABNScheduler is a local notifications scheduler for iOS written in Swift.
 - Ability to schedule more than 64 local notifications
 - Schedule flexible notifications (upcoming)
 
-## Installation
-
-Just copy `ABNScheduler.swift` to your project and you're ready to go.
 
 ## Usage
 ### Scheduling a Notification
@@ -71,48 +67,3 @@ let notification = ABNScheduler.notificationWithIdentifier("identifier")
 
 To retrieve the scheduled notifications by iOS, call `ABNScheduler.scheduledNotifications()`. This returns an array of ABNotification.
 
-### Rescheduling a Notification
-```
-let notification = ABNScheduler.notificationWithIdentifier("identifier")
-notification?.reschedule(fireDate: NSDate().nextMinutes(10))
-```
-> nextMinutes(_:) is part of an NSDate extension.
-
-You can alternatively snooze a notification for minutes, hours or days using
-`snoozeForMinutes(_:)`, `snoozeForHours(_:)` or `snoozeForDays(_:)` respectively.
-
-If you feel that the notifications are not well organized, you can call `ABNScheduler.rescheduleNotifications()`. This will reorder the notifications scheduled by iOS and the notifications stored in the queue. This may be useful to call whenever the app launches.
-
-### Canceling a Notification
-```
-let notification = ABNScheduler.notificationWithIdentifier("identifier")
-ABNScheduler.cancel(notification!)
-```
-
-##### Alternatively
-```
-let notification = ABNScheduler.notificationWithIdentifier("identifier")
-notification?.cancel()
-```
-
-You can cancel all scheduled notifications by calling `ABNScheduler.cancelAllNotifications()`.
-
-## Drawbacks
-Since the additional notifications are handled entirely by the app, it must be launched for the notifications to be scheduled by iOS. Just do not forget to call `ABNScheduler.scheduleNotificationsFromQueue()`.
-
-Currently, this version of ABNScheduler does not support handling multiple notifications having the same identifier. It is submitted as an issue and will be completed soon.
-
-## Notes
-The scheduler is preset to allow 60 notifications to be scheduled by iOS. The remaining four slots are kept for the app-defined notifications that need not to be queued. These free slots are currently not handled by ABNScheduler; if you use ABNScheduler to utilize these slots, the notifications will be added to the queue. To change the maximum allowed, just update `maximumScheduledNotifications` in ABNScheduler.swift.
-
-It is a good practice to call `ABNScheduler.scheduleNotificationsFromQueue()` inside `
-application(_:didReceiveLocalNotification:)` in the AppDelegate class and when the app is launched. If you're going to call `ABNScheduler.rescheduleNotifications()` when the app launches, then no need to call `ABNScheduler.scheduleNotificationsFromQueue()`.
-
-You can create an ABNotification instance using a UILocalNotificaion as an argument, however, make sure that this UILocalNotificaion has an `ABNIdentifier` key in its user info dictionary.
-
-## Credits
-ABNScheduler is written by Ahmed Abdul Badie. You are more than welcome to open issues and submit pull requests. Feel free to contact me through my email provided in my Github page.
-
-## License
-
-ABNScheduler is  released under the MIT license. For more details, see LICENSE.
